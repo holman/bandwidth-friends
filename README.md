@@ -5,7 +5,7 @@ A shell script for macOS that makes sure you are being nice to your nice coffees
 If you go over the set limit of bandwidth usage in a thirty second period, your
 computer will issue a nice little notice to everyone around you.
 
-See *blawg post* for more.
+See [this blawg post](https://zachholman.com/posts/remote-work-cafes) for more.
 
 ## Install
 
