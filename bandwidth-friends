@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# bandwidth-friends
+#
+# Be friendly to those on the same network as you. Give them a slight notice
+# when you're using a lot of bandwidth.
+
+output=''
+poll_interval=30000  # every 30 seconds
+max_transfer=1000000 # one MB/s transfer
+
+echo "MONITORING YOUR BANDWIDTH TO MAKE SURE U R BEING NICE"
+
+while output=$( bwm-ng -t $poll_interval -I en0 -o csv -c1 ); do
+  amount=$(echo $output | cut -f5 -d';')
+  amount_calc=$(echo "$amount > $max_transfer" | bc)
+
+  if (( $amount_calc )); then
+    echo "OH OH U R BEING A LITTLE UN NICE RITE NOW I AM TAKING CARE OF IT FOR U"
+    $(osascript -e "set Volume 10")
+    $(say ATTENTION ATTENTION I AM CURRENTLY EXPERIENCING A HIGHER THAN NORMAL \
+      BANDWIDTH VOLUME, PLEASE ACCEPT MY APOLOGIES WHILE I USE THE INTERNET \
+      SLIGHTLY AGGRESSIVELY RIGHT NOW HUGS AND KISSES)
+  fi
+done
